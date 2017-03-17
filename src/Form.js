@@ -3,6 +3,8 @@ import Name from './Name';
 import Email from './Email';
 import Phone from './Phone';
 
+import request from 'superagent';
+
 class Form extends Component {
 
   constructor(props) {
@@ -50,7 +52,21 @@ class Form extends Component {
       alert(errors.join('\n'));
       return
     } else {
-      alert(["Success! You entered:", this.state.first, this.state.last, this.state.email, this.state.phone].join('\n'));
+      request
+        .post('http://webtier.christianle.com/v1/contact')
+        .send({
+          first: this.state.first,
+          last: this.state.last,
+          email: this.state.email,
+          phone: this.state.phone,
+        })
+        .end(function(err, res) {
+          if (err || !res.ok) {
+           alert('u dun goofed');
+          } else {
+           alert('this what u got ' + JSON.stringify(res.body));
+          }
+        });
       return
     }
   }
