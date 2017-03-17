@@ -62,9 +62,9 @@ class Form extends Component {
         })
         .end(function(err, res) {
           if (err || !res.ok) {
-           alert('u dun goofed');
+           alert('Error with the response! ');
           } else {
-           alert('this what u got ' + JSON.stringify(res.body));
+           alert('Here\'s your response: ' + JSON.stringify(res.body));
           }
         });
       return
